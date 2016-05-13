@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Choose>
+  <When Condition="'$(VisualStudioVersion)' == '11.0'">
+    <PropertyGroup>
+      <FSharpTargetsPath>$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets</FSharpTargetsPath>
+    </PropertyGroup>
+  </When>
+  <Otherwise>
+    <PropertyGroup>
+      <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
+    </PropertyGroup>
+  </Otherwise>
+</Choose>
+<Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
+
+  <ItemGroup>
+    <Compile Include=".\src\game.fs" />
+    <Compile Include=".\src\alpha.fs" />
+  </ItemGroup>
+  
+  <Target Name="Build" >
+    <Fsc Sources="@(Compile)" TargetType="library" OutputAssembly="go-server.dll"/>
+  </Target>
+  
+</Project>
